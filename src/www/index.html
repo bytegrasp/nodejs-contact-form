@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NodeJS Form Validation</title>
+    <script type="module" src="/src/www/index.js"></script>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="pt-20">
+      <div x-data class="container mx-auto px-10 flex flex-col gap-4">
+        <div class="md:w-full md:max-w-xl md:mx-auto flex flex-col gap-2">
+          <h1 class="text-xl text-center font-bold">Contact Form</h1>
+          <form
+            x-data="contact"
+            x-on:submit="submit(event)"
+            class="flex flex-col gap-3"
+          >
+            <div x-id="['contact-input']" class="flex flex-col gap-1">
+              <label x-bind:for="$id('contact-input')">Your name</label>
+              <input
+                x-bind:id="$id('contact-input')"
+                x-data="{ error: false }"
+                x-on:invalid="error = true"
+                x-on:input="error = !$el.validity.valid"
+                class="rounded bg-gray-100 focus:bg-white"
+                x-bind:class="error ? 'border-red-600 focus:border-red-400 focus:ring-red-400' : 'border-transparent focus:border-gray-400 focus:ring-gray-400'"
+                name="name"
+                type="text"
+                placeholder="Name placeholder"
+                required
+                maxlength="60"
+              />
+            </div>
+            <div x-id="['contact-input']" class="flex flex-col gap-1">
+              <label x-bind:for="$id('contact-input')">Your email</label>
+              <input
+                x-bind:id="$id('contact-input')"
+                x-data="{ error: false }"
+                x-on:invalid="error = true"
+                x-on:input="error = !$el.validity.valid"
+                class="rounded bg-gray-100 focus:bg-white"
+                x-bind:class="error ? 'border-red-600 focus:border-red-400 focus:ring-red-400' : 'border-transparent focus:border-gray-400 focus:ring-gray-400'"
+                name="email"
+                type="email"
+                placeholder="Email placeholder"
+                required
+                maxlength="60"
+              />
+            </div>
+            <!-- trap field for bots that must not be filled -->
+            <div
+              x-cloak
+              x-show="false"
+              x-id="['contact-input']"
+              class="flex flex-col gap-1"
+            >
+              <label x-bind:for="$id('contact-input')">Your URL</label>
+              <input
+                x-bind:id="$id('contact-input')"
+                x-data="{ error: false }"
+                x-on:invalid="error = true"
+                x-on:input="error = !$el.validity.valid"
+                class="rounded bg-gray-100 focus:bg-white"
+                x-bind:class="error ? 'border-red-600 focus:border-red-400 focus:ring-red-400' : 'border-transparent focus:border-gray-400 focus:ring-gray-400'"
+                name="url_t"
+                type="text"
+                placeholder="https://www.example.com"
+                maxlength="60"
+              />
+            </div>
+            <div x-id="['contact-input']" class="flex flex-col gap-1">
+              <label x-bind:for="$id('contact-input')">Your message</label>
+              <textarea
+                x-bind:id="$id('contact-input')"
+                x-data="{ error: false }"
+                x-on:invalid="error = true"
+                x-on:input="error = !$el.validity.valid"
+                class="resize-none rounded bg-gray-100 focus:bg-white"
+                x-bind:class="error ? 'border-red-600 focus:border-red-400 focus:ring-red-400' : 'border-transparent focus:border-gray-400 focus:ring-gray-400'"
+                name="message"
+                placeholder="Message placeholder"
+                rows="5"
+                required
+                maxlength="1000"
+              ></textarea>
+            </div>
+            <button
+              x-show="success == undefined"
+              x-bind:disabled="sending"
+              x-bind:class="{ 'hover:bg-sky-700': !sending }"
+              class="max-w-max px-3 py-2 rounded bg-sky-600 text-white font-bold flex flex-row items-center"
+              type="submit"
+            >
+              <svg
+                x-cloak
+                x-show="sending"
+                class="animate-spin h-5 w-5"
+                fill="none"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-50"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  stroke-width="4"
+                  stroke="currentColor"
+                  d="M 22 12 A 10 10 0 0 1 12 22"
+                />
+              </svg>
+              <span x-show="!sending">Send Message</span>
+              <span class="ml-2" x-cloak x-show="sending">Sending...</span>
+            </button>
+            <span
+              x-cloak
+              x-show="success != undefined && success"
+              class="max-w-max p-2 text-sm text-green-700 bg-green-100 rounded-lg"
+              role="alert"
+            >
+              Your message has been sent!
+            </span>
+            <p
+              x-cloak
+              x-show="success != undefined && !success"
+              class="max-w-max p-2 text-sm text-red-700 bg-red-100 rounded-lg"
+              role="alert"
+            >
+              This service is currently not available. Please try again later.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

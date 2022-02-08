@@ -1,0 +1,42 @@
+{
+  "name": "nodejs-form-validation",
+  "packageManager": "yarn@3.1.1",
+  "targets": {
+    "www": {
+      "context": "browser"
+    },
+    "api": {
+      "context": "node",
+      "includeNodeModules": true,
+      "engines": {
+        "node": "^17.0.0"
+      }
+    }
+  },
+  "scripts": {
+    "clean": "rm -Rf _site dist .parcel-cache",
+    "start": "run-p start:api start:www",
+    "start:api": "nodemon -w src/api src/api/main.js",
+    "start:www": "parcel --target www 'src/www/**/*.html'",
+    "build": "run-p build:api build:www",
+    "build:api": "parcel build --target api src/api/**/*.js",
+    "build:www": "parcel build --target www 'src/www/**/*.html'"
+  },
+  "devDependencies": {
+    "@parcel/core": "^2.2.1",
+    "autoprefixer": "^10.4.2",
+    "nodemon": "^2.0.15",
+    "parcel": "^2.2.1",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.0.15",
+    "yarn-run-all": "^3.1.1"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.4.0",
+    "alpinejs": "^3.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "nodemailer": "^6.7.2"
+  }
+}
