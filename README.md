@@ -20,7 +20,6 @@ Use the following commands to build the image and run a Docker container:
 ```
 yarn build
 docker build -f .docker/Dockerfile -t flortsch/nodejs-contact-form:0.0.1-SNAPSHOT .
-docker run flortsch/nodejs-contact-form:0.0.1-SNAPSHOT
 docker run -p 1234:80 flortsch/nodejs-contact-form:0.0.1-SNAPSHOT
 ```
 
